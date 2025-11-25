@@ -62,6 +62,8 @@ void printList(Node* n) {
 
 int main (){
 struct Mysong s; 
+
+    //Ngetes aja 
     cout << "Masukkan judul lagu: "; endl;
     cin >> s.Judul_Lagu;
     cout << "Masukkan Genre: "; endl;
@@ -73,4 +75,5 @@ struct Mysong s;
     
     return 0;
 }
+
 

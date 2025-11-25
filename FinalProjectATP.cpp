@@ -2,20 +2,23 @@
 using namespace std;
 
 struct Mysong {
-    char judul lagu [100];
-    char penyanyi [100];
-    char genre [100];
-    char favorit [100];
+    string Judul_Lagu [100];
+    string Penyanyi [100];
+    string Genre [100];
+    string Favorit [100];
     Node *next;
 };
 
-void insertAwal (Node** head, string NamaBaru, string NRPBaru, string NomorBaru){
+Node *head = NULL;
+
+void insertAwal (Node** head, string Judul_LaguBaru, string PenyanyiBaru, string GenreBaru, string FavoritBaru){
 
     //Membuat node baru di heap memori
     Node* nodeBaru = new Node ();
-    nodeBaru->NRP = NRPBaru;
-    nodeBaru->Nama = NamaBaru;
-    nodeBaru->Nomor = NomorBaru;
+    nodeBaru->Judul_Lagu = judulBaru;
+    nodeBaru->Penyanyi = NamaBaru;
+    nodeBaru->Genre = GenreBaru;
+    nodeBaru->Favorit = FavoritBaru;
     
     //Membuat pointer next mengarah ke head dimana head merupakan NULL
     nodeBaru->next = *head;
@@ -45,9 +48,10 @@ void printList(Node* n) {
     cout << "== Data Mahasiswa Saat Ini ==" << endl;
     while (n != NULL)
     {   cout << i << "." << endl;
-        cout << "NRP: " << n->NRP << endl;
-        cout << "Nama: " << n->Nama << endl;
-        cout << "Nomor: " << n->Nomor << endl;
+        cout << "Judul Lagu: " << n->Judul_Lagu << endl;
+        cout << "Penyanyi: " << n->Penyanyi << endl;
+        cout << "Genre: " << n->Genre << endl;
+        cout << "Favorit: " << n->Favorit << endl;
         //Jadi kita menginisialisasi agar n dapat mengakses ke alamat dari node berikutnya
         n = n->next;
         i++;
@@ -58,8 +62,15 @@ void printList(Node* n) {
 
 int main (){
 struct Mysong s; 
-
+    cout << "Masukkan judul lagu: "; endl;
+    cin >> s.Judul_Lagu;
+    cout << "Masukkan Genre: "; endl;
+    cin >> s.Genre;
+    cout << "Masukkan Penyanyi: "; endl
+    cin >> s.Penyanyi;
+    cout << "Apakah termasuk lagu favorti (y/n)? "; endl;
+    cin >> s.Favorit;
     
     return 0;
-
 }
+

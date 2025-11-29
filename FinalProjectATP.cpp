@@ -12,6 +12,16 @@ struct Myplaylist {
     Myplaylist *next;
 };
 
+struct Myfavorite {
+    string judulf;
+    string penyanyif;
+    string genref;
+    string durasif;
+
+    Myfavorite *next;
+};
+
+
 void insertlagu (Myplaylist** head, Myplaylist x){
     //Membuat nodebaru di memori heap
     Myplaylist *nodeBaru = new Myplaylist ();
@@ -71,6 +81,8 @@ void mencarigenre (Myplaylist* temp, string cari){
 }
 
 
+
+
 int main (){
 song *head = NULL;
 song x;
@@ -95,14 +107,19 @@ do {
     switch (pilihan){
         case 1:
         cout << "So what the title of the song: ";
-        cin >> x.judul;
+        //1000 itu sebagai batasan maksimum karakter yang akan dihapus di buffer input
+        cin.ignore(1000, '\n');
+        getline(cin, x.judul);
         cout << "Wow, that's an interesting choice sir" << endl;
         cout << "Who is the singer? ";
-        cin >> x.penyanyi;
+        //cin.ignore(1000, '\n');
+        getline(cin, x.penyanyi);
         cout << "What genre is the song? ";
-        cin >> x.genre;
+        //cin.ignore(1000, '\n');
+        getline(cin, x.genre);
         cout << "How long is the duration of the song? ";
-        cin >> x.durasi;
+        //cin.ignore(1000, '\n');
+        getline(cin, x.durasi);
         cout << "OKAYY SIR, I WILL ADD IT TO YOUR PLAYLIST" << endl;
         cout << "\n";
 
@@ -130,4 +147,5 @@ while (pilihan != '0');
 
     return 0;
 }
+
 

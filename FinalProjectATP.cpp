@@ -1,135 +1,133 @@
 #include <iostream>
-#include <string>
-
+#include <string.h>
 using namespace std;
 
-// Definisi Node untuk Linked List
-struct Node {
-    string Judul_Lagu;
-    string Penyanyi;
-    string Genre;
-    string Favorit;
-    Node *next;
+//fungsi linked list 
+struct Myplaylist {
+    string judul;
+    string penyanyi;
+    string genre;
+    string durasi;
+
+    Myplaylist *next;
 };
 
-// Pointer head global (bisa juga ditaruh di main, tapi ini mengikuti gaya kode Anda)
-Node *head = NULL;
+void insertlagu (Myplaylist** head, Myplaylist x){
+    //Membuat nodebaru di memori heap
+    Myplaylist *nodeBaru = new Myplaylist ();
+    //Mengakses nilai dari struct
+    nodeBaru->judul = x.judul;
+    nodeBaru->penyanyi = x.penyanyi;
+    nodeBaru->genre = x.genre;
+    nodeBaru->durasi = x.durasi;
 
-// Fungsi untuk menambah data di awal (Push Front)
-void insertAwal(Node** head, string Judul_LaguBaru, string PenyanyiBaru, string GenreBaru, string FavoritBaru) {
-    // 1. Membuat node baru di heap memori
-    Node* nodeBaru = new Node();
 
-    // 2. Mengisi data ke node baru
-    nodeBaru->Judul_Lagu = Judul_LaguBaru;
-    nodeBaru->Penyanyi   = PenyanyiBaru;
-    nodeBaru->Genre      = GenreBaru;
-    nodeBaru->Favorit    = FavoritBaru;
-
-    // 3. Membuat pointer next node baru mengarah ke head saat ini
+    //Mengarahkan alamat node baru ke head
     nodeBaru->next = *head;
-
-    // 4. Pindahkan head ke node yang baru
     *head = nodeBaru;
-    
-    cout << "Data berhasil ditambahkan!" << endl;
-}
 
-// Fungsi untuk menghapus data di awal (Pop Front)
-void deleteAwal(Node** head) {
-    // Mengecek apakah list kosong
-    if (*head == NULL) {
-        cout << "List Kosong, tidak ada yang bisa dihapus." << endl;
-        return;
-    }
+};
 
-    // Menyimpan alamat node pertama sementara
-    Node* t = *head;
+typedef struct Myplaylist song;
 
-    // Memindahkan head ke node berikutnya
-    *head = (*head)->next;
-
-    // Menghapus node yang lama dari memori
-    delete t;
-    
-    cout << "Data awal berhasil dihapus." << endl;
-}
-
-// Fungsi untuk menampilkan seluruh data (Traversal)
-
-void printList(Node* n) {
+void menampilkanlagu (Myplaylist *n){
     int i = 1;
-    cout << "\n== Data Lagu Saat Ini ==" << endl;
-    
-    if (n == NULL) {
-        cout << "(List Kosong)" << endl;
-        return;
-    }
-
-    while (n != NULL) {
+    while (n != NULL){
         cout << i << "." << endl;
-        cout << "   Judul Lagu : " << n->Judul_Lagu << endl;
-        cout << "   Penyanyi   : " << n->Penyanyi << endl;
-        cout << "   Genre      : " << n->Genre << endl;
-        cout << "   Favorit    : " << n->Favorit << endl;
-        
-        // Pindah ke node berikutnya
+        cout << "Judul: " << n->judul << endl;
+        cout << "Penyanyi: " << n->penyanyi << endl;
+        cout << "Genre: " << n->genre << endl;
+        cout << "Durasi: " << n->durasi << endl;
+        cout << "\n";
+
         n = n->next;
         i++;
     }
-    cout << "========================" << endl;
+    
+    
 }
 
-int main() {
-    // Variabel temporary untuk input user
-    string inJudul, inPenyanyi, inGenre, inFavorit;
-    char pilihan;
+void mencarigenre (Myplaylist* temp, string cari){
+    bool ditemukan = false;
     
-    do {
-        cout << "\n--- MENU ---" << endl;
-        cout << "1. Tambah Lagu (Insert Awal)" << endl;
-        cout << "2. Hapus Lagu (Delete Awal)" << endl;
-        cout << "3. Tampilkan Playlist" << endl;
-        cout << "4. Keluar" << endl;
-        cout << "Pilihan: ";
-        cin >> pilihan;
-        cin.ignore(); // Membersihkan buffer enter
-
-        switch(pilihan) {
-            case '1':
-                cout << "Masukkan Judul Lagu : ";
-                getline(cin, inJudul);
-                cout << "Masukkan Penyanyi   : ";
-                getline(cin, inPenyanyi);
-                cout << "Masukkan Genre      : ";
-                getline(cin, inGenre);
-                cout << "Favorit (y/n)?      : ";
-                getline(cin, inFavorit);
-                
-                // Panggil fungsi insertAwal
-                insertAwal(&head, inJudul, inPenyanyi, inGenre, inFavorit);
-                break;
+    while(temp != NULL){
+        int i = 1;
+        if(temp->genre.find(cari) != string::npos){
+            cout << i << "." << endl;
+            cout << "Judul: " << temp->judul << endl;
+            cout << "Penyanyi: " << temp->penyanyi << endl;
+            cout << "Genre: " << temp->genre << endl;
+            cout << "Durasi: " << temp->durasi << endl;
+            cout << "\n";
+            i++;
+            ditemukan = true;
             
-            case '2':
-                deleteAwal(&head);
-                break;
-
-            case '3':
-                printList(head);
-                break;
-            
-            case '4':
-                cout << "Keluar program..." << endl;
-                break;
-                
-            default:
-                cout << "Pilihan tidak valid." << endl;
         }
+        temp = temp->next;
+    }
+    if (!ditemukan){
+        cout << "There's no song that fall into that genre sir";
+    }
+}
 
-    } while (pilihan != '4');
+
+int main (){
+song *head = NULL;
+song x;
+int pilihan;
+
+cout << "====================================================================================" << endl;
+cout << "WELCOME TO YOUR'PLAYLIST WHERE YOU CAN STORE ALL OF THE MUSIC THAT YOU'RE INTERESTED" << endl;
+cout << "====================================================================================" << endl;
+
+do {
+    cout << "SO IS THERE ANYTHING THAT I COULD HELP YOU SIR" << endl;
+    cout << "1. Add the baddest song to your playlist?" << endl;
+    cout << "2. Add a song to be your favorite?" << endl;
+    cout << "3. Show you're most beutiful playlist?" << endl;
+    cout << "4. Show you're favorite song?" << endl;
+    cout << "5. Delete song from your playlist?" << endl;
+    cout << "6. Delete song from your favorite?" << endl;
+    cout << "7. Show you're song by Genre? " << endl;
+    cout << "0. Exit" << endl;
+    cin >> pilihan;
+
+    switch (pilihan){
+        case 1:
+        cout << "So what the title of the song: ";
+        cin >> x.judul;
+        cout << "Wow, that's an interesting choice sir" << endl;
+        cout << "Who is the singer? ";
+        cin >> x.penyanyi;
+        cout << "What genre is the song? ";
+        cin >> x.genre;
+        cout << "How long is the duration of the song? ";
+        cin >> x.durasi;
+        cout << "OKAYY SIR, I WILL ADD IT TO YOUR PLAYLIST" << endl;
+        cout << "\n";
+
+        insertlagu(&head,x);
+        break;
+
+        case 3: 
+        menampilkanlagu(head);
+        break;
+
+        case 7:
+        string cari;
+        cout << "What genre are you interesting at? ";
+        cin >> cari;
+        mencarigenre(head, cari);
+        break;
+        
+    }
+        
+
+    
+}
+while (pilihan != '0');
+
 
     return 0;
 }
-
-//Tes halo 
 
